@@ -2,10 +2,12 @@
 FROM centos:centos7
 MAINTAINER anuj
 
-# Install prepare infrastructure
-RUN yum -y update && \
- yum -y install wget && \
- yum -y install tar
+
+# Install prepare infrastructur
+RUN yum clean all
+RUN  yum -y update  && \
+yum -y install wget && \
+yum -y install tar
 
 # Prepare environment 
 ENV JAVA_HOME /opt/java
@@ -13,25 +15,18 @@ ENV CATALINA_HOME /opt/tomcat
 ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/bin:$CATALINA_HOME/scripts
 
 # Install Oracle Java8
-ENV JAVA_VERSION 8u121
-ENV JAVA_BUILD 8u121-b13
-ENV JAVA_DL_HASH e9e7ea248e2c4826b92b3f075a80e441
-
 RUN wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" \
- http://download.oracle.com/otn-pub/java/jdk/${JAVA_BUILD}/${JAVA_DL_HASH}/jdk-${JAVA_VERSION}-linux-x64.tar.gz && \
- tar -xvf jdk-${JAVA_VERSION}-linux-x64.tar.gz && \
- rm jdk*.tar.gz && \
- mv jdk* ${JAVA_HOME}
+http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz && \
+tar -xvf jdk-8u131-linux-x64.tar.gz && \
+rm jdk*.tar.gz && \
+mv jdk* ${JAVA_HOME}
 
+RUN wget http://apache.mirrors.ionfish.org/tomcat/tomcat-7/v7.0.78/bin/apache-tomcat-7.0.78.tar.gz && \
+tar -xzf apache-tomcat-7.0.78.tar.gz && \
+tar -xvf apache-tomcat*.tar.gz && \
+rm apache-tomcat*.tar.gz && \
+mv apache-tomcat* ${CATALINA_HOME}
 
-# Install Tomcat
-ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.5.13
-
-RUN wget http://ftp.riken.jp/net/apache/tomcat/tomcat-${TOMCAT_MAJOR}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
- tar -xvf apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
- rm apache-tomcat*.tar.gz && \
- mv apache-tomcat* ${CATALINA_HOME}
 
 RUN chmod +x ${CATALINA_HOME}/bin/*sh
 
@@ -42,8 +37,16 @@ RUN chmod +x $CATALINA_HOME/scripts/*.sh
 
 # Create tomcat user
 RUN groupadd -r tomcat && \
- useradd -g tomcat -d ${CATALINA_HOME} -s /sbin/nologin  -c "Tomcat user" tomcat && \
- chown -R tomcat:tomcat ${CATALINA_HOME}
+useradd -g tomcat -d ${CATALINA_HOME} -s /sbin/nologin  -c "Tomcat user" tomcat && \
+chown -R tomcat:tomcat ${CATALINA_HOME}
+
+#Adding War File
+#ADD JavaWebAppExample.war /usr/local/tomcat/webapps/
+ADD JavaWebAppExample.war /usr/local/tomcat/webapps/
+RUN chmod +x /usr/local/tomcat/webapps/JavaWebAppExample.war 
+
+ADD JavaWebAppExample.war /opt/tomcat/webapps/
+RUN chmod +x /usr/local/tomcat/webapps/JavaWebAppExample.war
 
 WORKDIR /opt/tomcat
 
@@ -52,3 +55,8 @@ EXPOSE 8009
 
 USER tomcat
 CMD ["tomcat.sh"]
+
+#Adding War File
+#ADD JavaWebAppExample.war /usr/local/tomcat/webapps/
+#ADD JavaWebAppExample.war /usr/local/tomcat/webapps/
+#RUN chmod +x /usr/local/tomcat/webapps/JavaWebAppExample.war 
