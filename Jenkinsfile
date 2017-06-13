@@ -1,5 +1,6 @@
 node {
-    def app 
+    def app
+    def mvnHome
     
     stage('Clone repository'){
     
@@ -13,7 +14,17 @@ node {
     }
     
     stage('Build Project'){
-    sh 'mvn clean install'
+        mvnHome = tool 'Maven'
+        // Run the maven build
+      if (isUnix()) {
+       
+          //  sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
+         sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
+          
+      } else {
+         bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+      }
+    
     
     }
     
