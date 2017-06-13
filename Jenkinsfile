@@ -7,6 +7,8 @@ node {
      
      checkout scm
      sh 'pwd'
+     sh 'java -version'
+     sh 'mvn -version'
      
     }
     
