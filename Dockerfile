@@ -9,9 +9,9 @@ RUN  yum -y update  && \
 yum -y install wget && \
 yum -y install tar
 
-# Prepare environment 
+# Prepare environment
 ENV JAVA_HOME /opt/java
-ENV CATALINA_HOME /opt/tomcat 
+ENV CATALINA_HOME /opt/tomcat
 ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/bin:$CATALINA_HOME/scripts
 
 # Install Oracle Java8
@@ -42,11 +42,11 @@ chown -R tomcat:tomcat ${CATALINA_HOME}
 
 #Adding War File
 #ADD JavaWebAppExample.war /usr/local/tomcat/webapps/
-ADD JavaWebAppExample.war /usr/local/tomcat/webapps/
-RUN chmod +x /usr/local/tomcat/webapps/JavaWebAppExample.war 
+#ADD JavaWebAppExample.war /usr/local/tomcat/webapps/
+#RUN chmod +x /usr/local/tomcat/webapps/JavaWebAppExample-0.0.1-SNAPSHOT.war
 
-ADD JavaWebAppExample.war /opt/tomcat/webapps/
-RUN chmod +x /usr/local/tomcat/webapps/JavaWebAppExample.war
+ADD target/JavaWebAppExample-0.0.1-SNAPSHOT.war /opt/tomcat/webapps/
+RUN chmod +x /opt/tomcat/webapps/JavaWebAppExample-0.0.1-SNAPSHOT.war
 
 WORKDIR /opt/tomcat
 
@@ -55,8 +55,3 @@ EXPOSE 8009
 
 USER tomcat
 CMD ["tomcat.sh"]
-
-#Adding War File
-#ADD JavaWebAppExample.war /usr/local/tomcat/webapps/
-#ADD JavaWebAppExample.war /usr/local/tomcat/webapps/
-#RUN chmod +x /usr/local/tomcat/webapps/JavaWebAppExample.war 
