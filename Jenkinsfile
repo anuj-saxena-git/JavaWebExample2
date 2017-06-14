@@ -30,7 +30,8 @@ node {
     
     stage('Build docker image'){
     
-        sh 'docker run -it --rm --name tomcat_with_application -p 3000:8080 centosjavatomcat:1.0'
+        sh 'sudo docker build -t centosjavatomcat:1.0 .'
+       //sh 'docker run -it --rm --name tomcat_with_application -p 3000:8080 centosjavatomcat:1.0'
     
     }
     
