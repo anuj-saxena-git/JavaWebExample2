@@ -39,9 +39,9 @@ node {
     
     }   */
     
-     stage('Run container and up the application'){
+ /*    stage('Run container and up the application'){
          
          sh 'docker run -it --rm --name tomcat_with_application -p 3000:8080 anujsaxenadocker90/centosjavatomcat:1.0'
     
-    } 
+    } */
 }
