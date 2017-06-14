@@ -30,7 +30,7 @@ node {
     
     stage('Build docker image'){
     
-        sh 'docker build -t centosjavatomcat:1.0 .'
+        sh 'docker build -t anujsaxenadocker90/centosjavatomcat:1.0 .'
        //sh 'docker run -it --rm --name tomcat_with_application -p 3000:8080 centosjavatomcat:1.0'
     
     }
