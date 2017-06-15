@@ -28,9 +28,18 @@ node {
     
     }
     
+    stages('Login to ECR'){
+    
+        sh 'token=aws ecr get-login --no-include-email --region us-east-1'
+        sh 'echo $echo' 
+        sh 'token'
+    
+    
+    }
+    
     stage('Build docker image'){
     
-        sh 'docker build -t anujsaxenadocker90/centosjavatomcat:1.0 .'
+        sh 'docker build -t baseImage_tomcat:latest .'
        //sh 'docker run -it --rm --name tomcat_with_application -p 3000:8080 centosjavatomcat:1.0'
     
     }
