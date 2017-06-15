@@ -29,7 +29,7 @@ node {
     
     }
     
-    stages('Login to ECR'){
+    stage('Login to ECR'){
     
         token = sh 'aws ecr get-login --no-include-email --region us-east-1'
         sh 'echo $token' 
