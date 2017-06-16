@@ -33,9 +33,16 @@ node {
     
        // token = sh 'aws ecr get-login --no-include-email --region us-east-1'
         
-        token = sh 'aws ecr get-login --region us-east-1'
-        sh 'echo $token' 
-        sh '$token'
+      //  token = sh 'aws ecr get-login --region us-east-1'
+     //   sh 'echo $token' 
+      //  sh '$token'
+     //   eval $(aws ecr get-login --region us-east-1)
+        def prs = "/usr/local/bin/aws --region us-east-1 ecr get-login".execute()
+prs.waitFor()
+def logintext = prs.text
+        
+       // println logintext 
+        
     
     
     }
