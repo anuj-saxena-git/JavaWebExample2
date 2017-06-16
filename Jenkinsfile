@@ -36,7 +36,9 @@ node {
       //  token = sh 'aws ecr get-login --region us-east-1'
      //   sh 'echo $token' 
       //  sh '$token'
-        sh 'eval $(aws ecr get-login --region us-east-1)'
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            sh 'eval $(aws ecr get-login --region us-east-1)'
+        }
     
      /*   def prs = "/usr/local/bin/aws --region us-east-1 ecr get-login".execute()
 prs.waitFor()
