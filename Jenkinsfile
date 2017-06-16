@@ -1,7 +1,6 @@
 node {
     def app
     def mvnHome
-    def token
     
     stage('Clone repository'){
     
@@ -29,45 +28,14 @@ node {
     
     }
     
-    stage('Login to ECR'){
+    stage('Build the docker Image'){
     
-       // token = sh 'aws ecr get-login --no-include-email --region us-east-1'
-        
-      //  token = sh 'aws ecr get-login --region us-east-1'
-     //   sh 'echo $token' 
-      //  sh '$token'
+       
         docker.withRegistry('https://848859896798.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:anuj-ecr-credentials') {
-            //sh 'eval $(aws ecr get-login --region us-east-1)'
-            
-          //  sh 'docker build -t baseImage_tomcat:latest .'
-            
-           sh 'docker build -t childimage:latest . '
+        
+           sh 'docker build -t childimage/tomcat:latest . '
         }
     
-     /*   def prs = "/usr/local/bin/aws --region us-east-1 ecr get-login".execute()
-prs.waitFor()
-def logintext = prs.text
-        
-       // println logintext 
-       */ 
-    
-    
     }
     
-    stage('Build docker image'){
-    
-       // sh 'docker build -t baseImage_tomcat:latest .'
-       //sh 'docker run -it --rm --name tomcat_with_application -p 3000:8080 centosjavatomcat:1.0'
-    
-    }
-    
-   /* stage('Push Image'){
-    
-    }   */
-    
- /*    stage('Run container and up the application'){
-         
-         sh 'docker run -it --rm --name tomcat_with_application -p 3000:8080 anujsaxenadocker90/centosjavatomcat:1.0'
-    
-    } */
 }
