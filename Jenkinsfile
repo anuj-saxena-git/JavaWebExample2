@@ -35,7 +35,7 @@ node {
         
         token = sh 'aws ecr get-login --region us-east-1'
         sh 'echo $token' 
-        sh 'token'
+        sh '$token'
     
     
     }
