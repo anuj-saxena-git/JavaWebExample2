@@ -1,8 +1,5 @@
 node{
-triggers
-{
-    githubPush()
-}
+
 
 
 def app
