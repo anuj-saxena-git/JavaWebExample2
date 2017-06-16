@@ -41,7 +41,7 @@ node {
             
           //  sh 'docker build -t baseImage_tomcat:latest .'
             
-           sh 'docker build -t childimage . '
+           sh 'docker build -t childimage:latest . '
         }
     
      /*   def prs = "/usr/local/bin/aws --region us-east-1 ecr get-login".execute()
