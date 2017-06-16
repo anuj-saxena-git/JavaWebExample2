@@ -37,7 +37,9 @@ node {
      //   sh 'echo $token' 
       //  sh '$token'
         docker.withRegistry('https://848859896798.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:anuj-ecr-credentials') {
-            sh 'eval $(aws ecr get-login --region us-east-1)'
+            //sh 'eval $(aws ecr get-login --region us-east-1)'
+            
+            sh 'docker build -t baseImage_tomcat:latest .'
         }
     
      /*   def prs = "/usr/local/bin/aws --region us-east-1 ecr get-login".execute()
@@ -52,7 +54,7 @@ def logintext = prs.text
     
     stage('Build docker image'){
     
-        sh 'docker build -t baseImage_tomcat:latest .'
+       // sh 'docker build -t baseImage_tomcat:latest .'
        //sh 'docker run -it --rm --name tomcat_with_application -p 3000:8080 centosjavatomcat:1.0'
     
     }
