@@ -1,5 +1,11 @@
-node {
-    def app
+
+triggers
+{
+    githubPush()
+}
+
+
+def app
     def mvnHome
     
     stage('Clone repository'){
@@ -39,4 +45,3 @@ node {
     
     }
     
-}
