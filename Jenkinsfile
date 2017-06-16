@@ -28,7 +28,7 @@ def app
      sh 'pwd'
      sh 'java -version'
      //sh 'mvn -version'
-        //-
+        //--
     
     }
     
