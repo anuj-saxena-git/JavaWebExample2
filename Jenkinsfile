@@ -39,7 +39,9 @@ node {
         docker.withRegistry('https://848859896798.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:anuj-ecr-credentials') {
             //sh 'eval $(aws ecr get-login --region us-east-1)'
             
-            sh 'docker build -t baseImage_tomcat:latest .'
+          //  sh 'docker build -t baseImage_tomcat:latest .'
+            
+           sh 'docker build -t childimage:2.0 . '
         }
     
      /*   def prs = "/usr/local/bin/aws --region us-east-1 ecr get-login".execute()
