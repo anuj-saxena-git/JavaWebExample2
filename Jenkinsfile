@@ -35,10 +35,10 @@ def app
     stage('Build the docker Image'){
     
        
-        docker.withRegistry('https://848859896798.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:anuj-ecr-credentials') {
+     /*   docker.withRegistry('https://848859896798.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:anuj-ecr-credentials') {
         
            sh 'docker build -t childimage/tomcat:latest . '
-        }
+        } */
     
     }
 }
